@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Follow Booster - ابحث وزد متابعيك</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #8338ec, #3b82f6); min-height: 100vh; display: flex; align-items: center; justify-content: center; color: #333; }
+        .container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); max-width: 500px; width: 90%; text-align: center; }
+        h1 { color: #8338ec; margin-bottom: 20px; font-size: 2.2em; }
+        input { width: 100%; padding: 15px; font-size: 18px; border: 2px solid #e5e7eb; border-radius: 10px; margin-bottom: 20px; text-align: center; }
+        input:focus { outline: none; border-color: #3b82f6; }
+        button { background: linear-gradient(135deg, #3b82f6, #8338ec); color: white; padding: 15px 30px; border: none; border-radius: 10px; font-size: 18px; cursor: pointer; transition: transform 0.3s; }
+        button:hover { transform: scale(1.05); }
+        .result { margin-top: 20px; padding: 20px; background: #f0f9ff; border-radius: 10px; display: none; }
+        .profile-link { color: #3b82f6; text-decoration: none; font-weight: bold; font-size: 20px; }
+        .profile-link:hover { text-decoration: underline; }
+        .tips { margin-top: 30px; text-align: right; font-size: 14px; color: #666; line-height: 1.6; }
+        .share-btn { background: #10b981; margin-top: 10px; padding: 10px 20px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 زد متابعيك على Instagram</h1>
+        <p>أدخل اسم المستخدم للبحث عن الحساب</p>
+        
+        <input type="text" id="username" placeholder="مثال: @example_user" maxlength="30">
+        <button onclick="searchProfile()">🔍 ابحث عن الحساب</button>
+        
+        <div id="result" class="result">
+            <h3>تم العثور على الحساب!</h3>
+            <a id="profileLink" class="profile-link" href="#" target="_blank"></a>
+            <br><br>
+            <button class="share-btn" onclick="shareProfile()">📤 شارك مع أصدقائك لزيادة المتابعين</button>
+        </div>
+        
+        <div class="tips">
+            <strong>نصائح لزيادة المتابعين عضوياً:</strong><br>
+            - نشر محتوى يومي جذاب<br>
+            - استخدام هاشتاجات شائعة<br>
+            - التفاعل مع المتابعين<br>
+            - مشاركة الرابط مع الأصدقاء
+        </div>
+    </div>
+
+    <script>
+        function searchProfile() {
+            const username = document.getElementById('username').value.trim();
+            if (!username) {
+                alert('⚠️ أدخل اسم المستخدم أولاً!');
+                return;
+            }
+            
+            // تنظيف الاسم (إزالة @ إن وجد)
+            const cleanUsername = username.replace('@', '');
+            const link = `https://www.instagram.com/${cleanUsername}/`;
+            
+            document.getElementById('profileLink').href = link;
+            document.getElementById('profileLink').textContent = `@${cleanUsername}`;
+            document.getElementById('result').style.display = 'block';
+            
+            // إضافة تأثير تمرير ناعم
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function shareProfile() {
+            const username = document.getElementById('username').value.trim().replace('@', '');
+            const text = `تابع @${username} على Instagram! 🚀 ${window.location.href}`;
+            
+            if (navigator.share) {
+                navigator.share({ title: 'حساب Instagram رائع', text: text, url: text });
+            } else {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('✅ تم نسخ الرابط! شاركه مع أصدقائك');
+                });
+            }
+        }
+        
+        // البحث بالضغط على Enter
+        document.getElementById('username').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') searchProfile();
+        });
+    </script>
+</body>
+</html>
